@@ -78,11 +78,11 @@ components:
           example: 1
         title:
           type: string
-          example: Cyberpunk 2077
+          example: WarCraft
         genre:
           type: string
-          example: RPG
+          example: Strategy
         price:
           type: number
           format: float
-          example: 59.99
+          example: 2500.15
