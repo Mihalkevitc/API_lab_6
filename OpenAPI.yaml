@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Game Store API
+  description: API для интернет-магазина компьютерных игр
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Локальный сервер для тестирования
+
+paths:
+  /games:
+    get:
+      summary: Получить список всех игр
+      responses:
+        '200':
+          description: Список игр
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      summary: Добавить новую игру
+      requestBody:
+        description: Информация о новой игре
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '201':
+          description: Игра добавлена
+          
+  /games/{id}:
+    get:
+      summary: Получить информацию об одной игре
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор игры
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация об игре
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Игра не найдена
+    delete:
+      summary: Удалить игру
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор игры
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Игра удалена
+        '404':
+          description: Игра не найдена
+
+components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Cyberpunk 2077
+        genre:
+          type: string
+          example: RPG
+        price:
+          type: number
+          format: float
+          example: 59.99
